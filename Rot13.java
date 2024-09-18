@@ -35,13 +35,14 @@ public class Rot13 {
                         break;
                     }
                 }
-                if ( (i + 13) > 26) {
+                if ( (index + 13) >= 25) {
                     //resta 26 i comença per l'inici
-                    cadenaXifrada = cadenaXifrada + abcMin[(i + 13) - 26];
+                    cadenaXifrada = cadenaXifrada + abcMin[(index + 13) - 25];
+                } else {
+                    cadenaXifrada = cadenaXifrada + abcMin[ index + 13];
                 }
 
-                cadenaXifrada = cadenaXifrada + abcMin[ i + 13];
-
+                
             } else {
                 //substituim per lletra majúscula
                 //identificar la lletra a xifrar i substituirla per la mateixa lletra + 13,
@@ -52,12 +53,14 @@ public class Rot13 {
                             break;
                         }
                     }
-                    if ( (i + 13) > 26) {
+                    if ( (index + 13) >= 25) {
                         //resta 26 i comença per l'inici
-                        cadenaXifrada = cadenaXifrada + abcMaj[(i + 13) - 26];
+                        cadenaXifrada = cadenaXifrada + abcMaj[(index + 13) - 25];
+                    } else {
+                        cadenaXifrada = cadenaXifrada + abcMaj[ index + 13];
                     }
     
-                    cadenaXifrada = cadenaXifrada + abcMaj[ i + 13];
+                   
                  
              }
         }

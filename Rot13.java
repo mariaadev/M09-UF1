@@ -28,7 +28,7 @@ public class Rot13 {
         String cadenaXifrada = "";
         int index = 0;
         for (int i = 0; i < cadena.length(); i++) {
-            if(Character.isWhitespace(cadena.charAt(i)) || !Character.isLetter(cadena.charAt(i))) {
+            if(!Character.isLetter(cadena.charAt(i))) {
                 cadenaXifrada = cadenaXifrada + cadena.charAt(i);
                 continue;
             }
@@ -77,7 +77,7 @@ public class Rot13 {
         int index = 0;
         //AnFvVN
         for (int i = 0; i < cadena.length(); i++) {
-            if(Character.isWhitespace(cadena.charAt(i)) || !Character.isLetter(cadena.charAt(i))) {
+            if(!Character.isLetter(cadena.charAt(i))) {
                 cadenaDesxifrada = cadenaDesxifrada + cadena.charAt(i);
                 continue;
             }

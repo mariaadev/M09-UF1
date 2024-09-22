@@ -59,7 +59,7 @@ public class Rot13 {
                         }
                     }
                     if ( (index + 13) >= 25) {
-                        //resta 26 i comença per l'inici
+                        //resta 25 i comença per l'inici
                         cadenaXifrada = cadenaXifrada + abcMaj[(index + 13) - 25];
                     } else {
                         cadenaXifrada = cadenaXifrada + abcMaj[ index + 13];
@@ -82,7 +82,6 @@ public class Rot13 {
                 continue;
             }
             if (Character.isLowerCase(cadena.charAt(i))) {
-                //caracter es en minuscula, substituim per lletra minuscula
                 for (int j = 0; j < abcMin.length; j++) {
                     if (cadena.charAt(i) == abcMin[j]) {
                         index = j;
@@ -91,9 +90,6 @@ public class Rot13 {
                 }
                 int diff = index - 13; 
                 if ( diff < 0) {
-                    //resta 26 i comença per l'inici
-                    // -5
-                    //començar pel final
                     cadenaDesxifrada = cadenaDesxifrada + abcMin[ Math.abs(abcMin.length - (Math.abs(diff)))];
                 } else {
                     cadenaDesxifrada = cadenaDesxifrada + abcMin[Math.abs(diff)];
@@ -101,9 +97,6 @@ public class Rot13 {
 
                 
             } else {
-                //substituim per lletra majúscula
-                //identificar la lletra a xifrar i substituirla per la mateixa lletra + 13,
-                // si s'arriba al final de l'array es torna al principi
                     for (int j = 0; j < abcMaj.length; j++) {
                         if (cadena.charAt(i) == abcMaj[j]) {
                             index = j;
@@ -112,7 +105,6 @@ public class Rot13 {
                     }
                     int diff = index - 13; 
                     if ( diff < 0) {
-                        //resta 26 i comença per l'inici
                         cadenaDesxifrada = cadenaDesxifrada + abcMaj[ Math.abs(abcMaj.length - (Math.abs(diff)))];
                     } else {
                         cadenaDesxifrada = cadenaDesxifrada + abcMaj[Math.abs(diff)];

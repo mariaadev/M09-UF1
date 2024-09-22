@@ -18,7 +18,8 @@ public class Rot13 {
 
 
     public static void main(String[] args) {
-        System.out.println(xifraRot13("MaRi.A"));
+        System.out.println(xifraRot13("MaRi.A "));
+        System.out.println(desxifraRot13("AnFVN"));
     }
 
     private static String  xifraRot13(String cadena) {
@@ -27,6 +28,7 @@ public class Rot13 {
         String cadenaXifrada = "";
         int index = 0;
         for (int i = 0; i < cadena.length(); i++) {
+            if(Character.isWhitespace(cadena.charAt(i)) || !Character.isLetter(cadena.charAt(i))) continue;
             if (Character.isLowerCase(cadena.charAt(i))) {
                 //caracter es en minuscula, substituim per lletra minuscula
                 for (int j = 0; j < abcMin.length; j++) {
@@ -68,6 +70,52 @@ public class Rot13 {
     }
 
     private static String desxifraRot13(String cadena) {
-        return "";
+        String cadenaDesxifrada = "";
+        int index = 0;
+        //AnFvVN
+        for (int i = 0; i < cadena.length(); i++) {
+            if(Character.isWhitespace(cadena.charAt(i)) || !Character.isLetter(cadena.charAt(i))) continue;
+            if (Character.isLowerCase(cadena.charAt(i))) {
+                //caracter es en minuscula, substituim per lletra minuscula
+                for (int j = 0; j < abcMin.length; j++) {
+                    if (cadena.charAt(i) == abcMin[j]) {
+                        index = j;
+                        break;
+                    }
+                }
+                int diff = index - 13; 
+                if ( diff < 0) {
+                    //resta 26 i comença per l'inici
+                    // -5
+                    //començar pel final
+                    cadenaDesxifrada = cadenaDesxifrada + abcMin[ Math.abs(abcMin.length - (Math.abs(diff)))];
+                } else {
+                    cadenaDesxifrada = cadenaDesxifrada + abcMin[Math.abs(diff)];
+                }
+
+                
+            } else {
+                //substituim per lletra majúscula
+                //identificar la lletra a xifrar i substituirla per la mateixa lletra + 13,
+                // si s'arriba al final de l'array es torna al principi
+                    for (int j = 0; j < abcMaj.length; j++) {
+                        if (cadena.charAt(i) == abcMaj[j]) {
+                            index = j;
+                            break;
+                        }
+                    }
+                    int diff = index - 13; 
+                    if ( diff < 0) {
+                        //resta 26 i comença per l'inici
+                        cadenaDesxifrada = cadenaDesxifrada + abcMaj[ Math.abs(abcMaj.length - (Math.abs(diff)))];
+                    } else {
+                        cadenaDesxifrada = cadenaDesxifrada + abcMaj[Math.abs(diff)];
+                    }
+    
+                   
+                 
+             }
+        }
+        return cadenaDesxifrada;
     }
 }

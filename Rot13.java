@@ -19,7 +19,7 @@ public class Rot13 {
 
     public static void main(String[] args) {
         System.out.println(xifraRot13("MaRi.A "));
-        System.out.println(desxifraRot13("AnFVN"));
+        System.out.println(desxifraRot13("AnFv.N"));
     }
 
     private static String  xifraRot13(String cadena) {
@@ -28,7 +28,10 @@ public class Rot13 {
         String cadenaXifrada = "";
         int index = 0;
         for (int i = 0; i < cadena.length(); i++) {
-            if(Character.isWhitespace(cadena.charAt(i)) || !Character.isLetter(cadena.charAt(i))) continue;
+            if(Character.isWhitespace(cadena.charAt(i)) || !Character.isLetter(cadena.charAt(i))) {
+                cadenaXifrada = cadenaXifrada + cadena.charAt(i);
+                continue;
+            }
             if (Character.isLowerCase(cadena.charAt(i))) {
                 //caracter es en minuscula, substituim per lletra minuscula
                 for (int j = 0; j < abcMin.length; j++) {
@@ -74,7 +77,10 @@ public class Rot13 {
         int index = 0;
         //AnFvVN
         for (int i = 0; i < cadena.length(); i++) {
-            if(Character.isWhitespace(cadena.charAt(i)) || !Character.isLetter(cadena.charAt(i))) continue;
+            if(Character.isWhitespace(cadena.charAt(i)) || !Character.isLetter(cadena.charAt(i))) {
+                cadenaDesxifrada = cadenaDesxifrada + cadena.charAt(i);
+                continue;
+            }
             if (Character.isLowerCase(cadena.charAt(i))) {
                 //caracter es en minuscula, substituim per lletra minuscula
                 for (int j = 0; j < abcMin.length; j++) {

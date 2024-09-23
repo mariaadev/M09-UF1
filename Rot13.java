@@ -12,9 +12,9 @@ Feu-ho per simplificar el procés de desplaçament d’una lletra per un altra.
 
 public class Rot13 {
 
-    public static char[] abcMin = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','x','y','z'};
+    public static char[] abcMin = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
     
-    public static char[] abcMaj = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','X','Y','Z'};
+    public static char[] abcMaj = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
 
 
     public static void main(String[] args) {
@@ -40,9 +40,9 @@ public class Rot13 {
                         break;
                     }
                 }
-                if ( (index + 13) >= 25) {
+                if ( (index + 13) >= abcMin.length) {
                     //resta 26 i comença per l'inici
-                    cadenaXifrada = cadenaXifrada + abcMin[(index + 13) - 25];
+                    cadenaXifrada = cadenaXifrada + abcMin[(index + 13) - abcMin.length];
                 } else {
                     cadenaXifrada = cadenaXifrada + abcMin[ index + 13];
                 }
@@ -58,9 +58,9 @@ public class Rot13 {
                             break;
                         }
                     }
-                    if ( (index + 13) >= 25) {
+                    if ( (index + 13) >= abcMaj.length) {
                         //resta 25 i comença per l'inici
-                        cadenaXifrada = cadenaXifrada + abcMaj[(index + 13) - 25];
+                        cadenaXifrada = cadenaXifrada + abcMaj[(index + 13) - abcMaj.length];
                     } else {
                         cadenaXifrada = cadenaXifrada + abcMaj[ index + 13];
                     }

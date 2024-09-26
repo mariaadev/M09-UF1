@@ -1,3 +1,4 @@
+
 public class RotX {
 
     public static char[] ABCMIN = "aáàäbcçdeéèëfghiíìïjklmnñoóòöpqrstuúùüvwxyz".toCharArray();
@@ -94,15 +95,13 @@ public class RotX {
         return cadenaDesxifrada.toString();
     }
 
-    private static String forcaBrutaRotX( String cadenaXifrada ) {
-        StringBuilder cadenaDesxifrada = new StringBuilder();
+    private static void forcaBrutaRotX( String cadenaXifrada ) {
         //provar totes les possibilitats
         System.out.println("Desxifrant cadena...");
         System.out.println("Resultat desxifrant amb: ");
         for (int i = 0; i < RotX.ABCMIN.length; i++ ) {
-            cadenaDesxifrada.append(desxifraRotX(cadenaXifrada, i));
+            String cadenaDesxifrada = desxifraRotX(cadenaXifrada, i);
             System.out.println(i + " desplaçaments: " + cadenaDesxifrada);
         }
-        return cadenaDesxifrada.toString();
     }
 }

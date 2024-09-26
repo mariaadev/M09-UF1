@@ -4,18 +4,18 @@ public class RotX {
     public static char[] ABCMAJ = "AÁÀÄBCÇDEÉÈËFGHIÍÌÏJKLMNÑOÓÒÖPQRSTUÚÙÜVWXYZ".toCharArray();
 
     public static void main(String[] args) {
-        System.out.println(xifraRot13("MaRi. A ", 13));
-        System.out.println(desxifraRot13("ÚgÁö. G ", 13));
+        System.out.println(xifraRotX("MaRi. A ", 13));
+        System.out.println(desxifraRotX("ÚgÁö. G ", 13));
         forcaBrutaRotX("ÚgÁö. G ");
     }
 
 
-    private static String  xifraRot13(String cadena, int desplacament) {
-        String cadenaXifrada = "";
+    private static String  xifraRotX(String cadena, int desplacament) {
+        StringBuilder cadenaXifrada = new StringBuilder();
         int index = 0;
         for (int i = 0; i < cadena.length(); i++) {
             if(!Character.isLetter(cadena.charAt(i))) {
-                cadenaXifrada = cadenaXifrada + cadena.charAt(i);
+                cadenaXifrada.append(cadena.charAt(i)) ;
                 continue;
             }
             if (Character.isLowerCase(cadena.charAt(i))) {
@@ -26,9 +26,9 @@ public class RotX {
                     }
                 }
                 if ( (index + desplacament) >= ABCMIN.length) {
-                    cadenaXifrada = cadenaXifrada + ABCMIN[(index + desplacament) - ABCMIN.length];
+                    cadenaXifrada.append(ABCMIN[(index + desplacament) - ABCMIN.length]);
                 } else {
-                    cadenaXifrada = cadenaXifrada + ABCMIN[ index + desplacament];
+                    cadenaXifrada.append(ABCMIN[ index + desplacament]) ;
                 }
 
                 
@@ -40,24 +40,24 @@ public class RotX {
                         }
                     }
                     if ( (index + desplacament) >= ABCMAJ.length) {
-                        cadenaXifrada = cadenaXifrada + ABCMAJ[(index + desplacament) - ABCMAJ.length];
+                        cadenaXifrada.append(ABCMAJ[(index + desplacament) - ABCMAJ.length]);
                     } else {
-                        cadenaXifrada = cadenaXifrada + ABCMAJ[ index + desplacament];
+                        cadenaXifrada.append(ABCMAJ[ index + desplacament]);
                     }
     
                    
                  
              }
         }
-        return cadenaXifrada;
+        return cadenaXifrada.toString();
     }
-    private static String desxifraRot13(String cadena, int desplacament) {
-        String cadenaDesxifrada = "";
+    private static String desxifraRotX(String cadena, int desplacament) {
+        StringBuilder cadenaDesxifrada = new StringBuilder();
         int index = 0;
 
         for (int i = 0; i < cadena.length(); i++) {
             if(!Character.isLetter(cadena.charAt(i))) {
-                cadenaDesxifrada = cadenaDesxifrada + cadena.charAt(i);
+                cadenaDesxifrada.append(cadena.charAt(i)) ;
                 continue;
             }
             if (Character.isLowerCase(cadena.charAt(i))) {
@@ -69,9 +69,9 @@ public class RotX {
                 }
                 int diff = index - desplacament; 
                 if ( diff < 0) {
-                    cadenaDesxifrada = cadenaDesxifrada + ABCMIN[ Math.abs(ABCMIN.length - (Math.abs(diff)))];
+                    cadenaDesxifrada.append(ABCMIN[ Math.abs(ABCMIN.length - (Math.abs(diff)))]);
                 } else {
-                    cadenaDesxifrada = cadenaDesxifrada + ABCMIN[Math.abs(diff)];
+                    cadenaDesxifrada.append(ABCMIN[Math.abs(diff)]);
                 }
    
             } else {
@@ -83,24 +83,26 @@ public class RotX {
                     }
                     int diff = index - desplacament; 
                     if ( diff < 0) {
-                        cadenaDesxifrada = cadenaDesxifrada + ABCMAJ[ Math.abs(ABCMAJ.length - (Math.abs(diff)))];
+                        cadenaDesxifrada.append(ABCMAJ[ Math.abs(ABCMAJ.length - (Math.abs(diff)))]);
                     } else {
-                        cadenaDesxifrada = cadenaDesxifrada + ABCMAJ[Math.abs(diff)];
+                        cadenaDesxifrada.append(ABCMAJ[Math.abs(diff)]);
                     }
              
                  
              }
         }
-        return cadenaDesxifrada;
+        return cadenaDesxifrada.toString();
     }
 
     private static String forcaBrutaRotX( String cadenaXifrada ) {
-        String cadenaDesxifrada = "";
+        StringBuilder cadenaDesxifrada = new StringBuilder();
         //provar totes les possibilitats
+        System.out.println("Desxifrant cadena...");
+        System.out.println("Resultat desxifrant amb: ");
         for (int i = 0; i < RotX.ABCMIN.length; i++ ) {
-            cadenaDesxifrada = desxifraRot13(cadenaXifrada, i);
-            System.out.println( "Resultat desxifrant amb " + i + " desplaçaments: " + cadenaDesxifrada);
+            cadenaDesxifrada.append(desxifraRotX(cadenaXifrada, i));
+            System.out.println(i + " desplaçaments: " + cadenaDesxifrada);
         }
-        return cadenaDesxifrada;
+        return cadenaDesxifrada.toString();
     }
 }

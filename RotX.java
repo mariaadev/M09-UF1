@@ -15,83 +15,89 @@ public class RotX {
         StringBuilder novaCadena = new StringBuilder();
         int index = 0;
         if (dreta) {
-            //xifra
-               
+            //xifra 
                 for (int i = 0; i < cadena.length(); i++) {
-                    if(!Character.isLetter(cadena.charAt(i))) {
-                        novaCadena.append(cadena.charAt(i)) ;
-                        continue;
-                    }
-                    if (Character.isLowerCase(cadena.charAt(i))) {
+                    boolean cadenaTrobadaMin = false;
+                    boolean cadenaTrobadaMaj = false;
+    
                         for (int j = 0; j < ABCMIN.length; j++) {
+                            
                             if (cadena.charAt(i) == ABCMIN[j]) {
                                 index = j;
+                                cadenaTrobadaMin = true;
+                                break;
+                            } 
+    
+                            if(cadena.charAt(i) == ABCMAJ[j]){
+                                index = j;
+                                cadenaTrobadaMaj = true;
                                 break;
                             }
                         }
-                        if ( (index + desplacament) >= ABCMIN.length) {
-                            novaCadena.append(ABCMIN[(index + desplacament) - ABCMIN.length]);
-                        } else {
-                            novaCadena.append(ABCMIN[ index + desplacament]) ;
-                        }
-        
-                        
-                    } else {
-                            for (int j = 0; j < ABCMAJ.length; j++) {
-                                if (cadena.charAt(i) == ABCMAJ[j]) {
-                                    index = j;
-                                    break;
-                                }
-                            }
-                            if ( (index + desplacament) >= ABCMAJ.length) {
-                                novaCadena.append(ABCMAJ[(index + desplacament) - ABCMAJ.length]);
+
+                        int diff = index + desplacament;
+
+                        if (cadenaTrobadaMin) {
+                            if ( diff >= ABCMIN.length) {
+                                novaCadena.append(ABCMIN[ diff - ABCMIN.length]);
                             } else {
-                                novaCadena.append(ABCMAJ[ index + desplacament]);
+                                novaCadena.append(ABCMIN[diff]) ;
                             }
-            
-                           
+                        } else if(cadenaTrobadaMaj) {
+                            if ( diff >= ABCMAJ.length) {
+                                novaCadena.append(ABCMAJ[diff - ABCMAJ.length]);
+                            } else {
+                                novaCadena.append(ABCMAJ[diff]) ;
+                            }
+                        } else {
+                            novaCadena.append(cadena.charAt(i)) ;
+                        }      
                          
-                     }
+                     
                 }
         
            
         } else {    
            //desxifra
             for (int i = 0; i < cadena.length(); i++) {
-                if(!Character.isLetter(cadena.charAt(i))) {
-                    novaCadena.append(cadena.charAt(i)) ;
-                    continue;
-                }
-                if (Character.isLowerCase(cadena.charAt(i))) {
+                boolean cadenaTrobadaMin = false;
+                boolean cadenaTrobadaMaj = false;
+
                     for (int j = 0; j < ABCMIN.length; j++) {
+                        
                         if (cadena.charAt(i) == ABCMIN[j]) {
                             index = j;
+                            cadenaTrobadaMin = true;
+                            break;
+                        } 
+
+                        if(cadena.charAt(i) == ABCMAJ[j]){
+                            index = j;
+                            cadenaTrobadaMaj = true;
                             break;
                         }
                     }
+
                     int diff = index - desplacament; 
-                    if ( diff < 0) {
-                        novaCadena.append(ABCMIN[ Math.abs(ABCMIN.length - (Math.abs(diff)))]);
-                    } else {
-                        novaCadena.append(ABCMIN[Math.abs(diff)]);
-                    }
-       
-                } else {
-                        for (int j = 0; j < ABCMAJ.length; j++) {
-                            if (cadena.charAt(i) == ABCMAJ[j]) {
-                                index = j;
-                                break;
-                            }
+                    
+                    if (cadenaTrobadaMin) {
+                        if ( diff < 0) {
+                            novaCadena.append(ABCMIN[ Math.abs(ABCMIN.length - (Math.abs(diff)))]);
+                        } else {
+                            novaCadena.append(ABCMIN[Math.abs(diff)]);
                         }
-                        int diff = index - desplacament; 
+                    } else if (cadenaTrobadaMaj) {
                         if ( diff < 0) {
                             novaCadena.append(ABCMAJ[ Math.abs(ABCMAJ.length - (Math.abs(diff)))]);
                         } else {
                             novaCadena.append(ABCMAJ[Math.abs(diff)]);
                         }
+                    } else {
+                        novaCadena.append(cadena.charAt(i)) ;
+                    }
+                                  
                  
-                     
-                 }
+                
             }
            
         }

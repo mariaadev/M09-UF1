@@ -11,88 +11,100 @@ public class RotX {
     }
 
 
-    private static String  xifraRotX(String cadena, int desplacament) {
-        StringBuilder cadenaXifrada = new StringBuilder();
+    private static String rota(String cadena, int desplacament, boolean dreta) {
+        StringBuilder novaCadena = new StringBuilder();
         int index = 0;
-        for (int i = 0; i < cadena.length(); i++) {
-            if(!Character.isLetter(cadena.charAt(i))) {
-                cadenaXifrada.append(cadena.charAt(i)) ;
-                continue;
-            }
-            if (Character.isLowerCase(cadena.charAt(i))) {
-                for (int j = 0; j < ABCMIN.length; j++) {
-                    if (cadena.charAt(i) == ABCMIN[j]) {
-                        index = j;
-                        break;
+        if (dreta) {
+            //xifra
+               
+                for (int i = 0; i < cadena.length(); i++) {
+                    if(!Character.isLetter(cadena.charAt(i))) {
+                        novaCadena.append(cadena.charAt(i)) ;
+                        continue;
                     }
-                }
-                if ( (index + desplacament) >= ABCMIN.length) {
-                    cadenaXifrada.append(ABCMIN[(index + desplacament) - ABCMIN.length]);
-                } else {
-                    cadenaXifrada.append(ABCMIN[ index + desplacament]) ;
-                }
-
-                
-            } else {
-                    for (int j = 0; j < ABCMAJ.length; j++) {
-                        if (cadena.charAt(i) == ABCMAJ[j]) {
-                            index = j;
-                            break;
+                    if (Character.isLowerCase(cadena.charAt(i))) {
+                        for (int j = 0; j < ABCMIN.length; j++) {
+                            if (cadena.charAt(i) == ABCMIN[j]) {
+                                index = j;
+                                break;
+                            }
                         }
-                    }
-                    if ( (index + desplacament) >= ABCMAJ.length) {
-                        cadenaXifrada.append(ABCMAJ[(index + desplacament) - ABCMAJ.length]);
+                        if ( (index + desplacament) >= ABCMIN.length) {
+                            novaCadena.append(ABCMIN[(index + desplacament) - ABCMIN.length]);
+                        } else {
+                            novaCadena.append(ABCMIN[ index + desplacament]) ;
+                        }
+        
+                        
                     } else {
-                        cadenaXifrada.append(ABCMAJ[ index + desplacament]);
-                    }
-    
-                   
-                 
-             }
-        }
-        return cadenaXifrada.toString();
-    }
-    private static String desxifraRotX(String cadena, int desplacament) {
-        StringBuilder cadenaDesxifrada = new StringBuilder();
-        int index = 0;
-
-        for (int i = 0; i < cadena.length(); i++) {
-            if(!Character.isLetter(cadena.charAt(i))) {
-                cadenaDesxifrada.append(cadena.charAt(i)) ;
-                continue;
-            }
-            if (Character.isLowerCase(cadena.charAt(i))) {
-                for (int j = 0; j < ABCMIN.length; j++) {
-                    if (cadena.charAt(i) == ABCMIN[j]) {
-                        index = j;
-                        break;
-                    }
+                            for (int j = 0; j < ABCMAJ.length; j++) {
+                                if (cadena.charAt(i) == ABCMAJ[j]) {
+                                    index = j;
+                                    break;
+                                }
+                            }
+                            if ( (index + desplacament) >= ABCMAJ.length) {
+                                novaCadena.append(ABCMAJ[(index + desplacament) - ABCMAJ.length]);
+                            } else {
+                                novaCadena.append(ABCMAJ[ index + desplacament]);
+                            }
+            
+                           
+                         
+                     }
                 }
-                int diff = index - desplacament; 
-                if ( diff < 0) {
-                    cadenaDesxifrada.append(ABCMIN[ Math.abs(ABCMIN.length - (Math.abs(diff)))]);
-                } else {
-                    cadenaDesxifrada.append(ABCMIN[Math.abs(diff)]);
+        
+           
+        } else {    
+           //desxifra
+            for (int i = 0; i < cadena.length(); i++) {
+                if(!Character.isLetter(cadena.charAt(i))) {
+                    novaCadena.append(cadena.charAt(i)) ;
+                    continue;
                 }
-   
-            } else {
-                    for (int j = 0; j < ABCMAJ.length; j++) {
-                        if (cadena.charAt(i) == ABCMAJ[j]) {
+                if (Character.isLowerCase(cadena.charAt(i))) {
+                    for (int j = 0; j < ABCMIN.length; j++) {
+                        if (cadena.charAt(i) == ABCMIN[j]) {
                             index = j;
                             break;
                         }
                     }
                     int diff = index - desplacament; 
                     if ( diff < 0) {
-                        cadenaDesxifrada.append(ABCMAJ[ Math.abs(ABCMAJ.length - (Math.abs(diff)))]);
+                        novaCadena.append(ABCMIN[ Math.abs(ABCMIN.length - (Math.abs(diff)))]);
                     } else {
-                        cadenaDesxifrada.append(ABCMAJ[Math.abs(diff)]);
+                        novaCadena.append(ABCMIN[Math.abs(diff)]);
                     }
-             
+       
+                } else {
+                        for (int j = 0; j < ABCMAJ.length; j++) {
+                            if (cadena.charAt(i) == ABCMAJ[j]) {
+                                index = j;
+                                break;
+                            }
+                        }
+                        int diff = index - desplacament; 
+                        if ( diff < 0) {
+                            novaCadena.append(ABCMAJ[ Math.abs(ABCMAJ.length - (Math.abs(diff)))]);
+                        } else {
+                            novaCadena.append(ABCMAJ[Math.abs(diff)]);
+                        }
                  
-             }
+                     
+                 }
+            }
+           
         }
-        return cadenaDesxifrada.toString();
+
+        return novaCadena.toString();
+    }
+
+    private static String  xifraRotX(String cadena, int desplacament) {
+        return rota(cadena,desplacament,true);
+    }
+   
+    private static String desxifraRotX(String cadena, int desplacament) {
+       return rota(cadena,desplacament,false);
     }
 
     private static void forcaBrutaRotX( String cadenaXifrada ) {

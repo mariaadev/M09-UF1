@@ -1,8 +1,8 @@
 
 public class RotX {
 
-    public static char[] ABCMIN = "aáàäbcçdeéèëfghiíìïjklmnñoóòöpqrstuúùüvwxyz".toCharArray();
-    public static char[] ABCMAJ = "AÁÀÄBCÇDEÉÈËFGHIÍÌÏJKLMNÑOÓÒÖPQRSTUÚÙÜVWXYZ".toCharArray();
+    public static final char[] ABCMIN = "aáàäbcçdeéèëfghiíìïjklmnñoóòöpqrstuúùüvwxyz".toCharArray();
+    public static final char[] ABCMAJ = "AÁÀÄBCÇDEÉÈËFGHIÍÌÏJKLMNÑOÓÒÖPQRSTUÚÙÜVWXYZ".toCharArray();
 
     public static void main(String[] args) {
         System.out.println(xifraRotX("MaRi. A ", 13));
@@ -38,17 +38,9 @@ public class RotX {
                         int diff = index + desplacament;
 
                         if (cadenaTrobadaMin) {
-                            if ( diff >= ABCMIN.length) {
-                                novaCadena.append(ABCMIN[ diff - ABCMIN.length]);
-                            } else {
-                                novaCadena.append(ABCMIN[diff]) ;
-                            }
+                            novaCadena.append(ABCMIN[diff % ABCMIN.length]);
                         } else if(cadenaTrobadaMaj) {
-                            if ( diff >= ABCMAJ.length) {
-                                novaCadena.append(ABCMAJ[diff - ABCMAJ.length]);
-                            } else {
-                                novaCadena.append(ABCMAJ[diff]) ;
-                            }
+                           novaCadena.append(ABCMAJ[diff % ABCMAJ.length]);
                         } else {
                             novaCadena.append(cadena.charAt(i)) ;
                         }      
@@ -79,24 +71,19 @@ public class RotX {
                     }
 
                     int diff = index - desplacament; 
-                    
+
+                    if (diff < 0) {
+                        diff = diff + ABCMIN.length;
+                    }
+
                     if (cadenaTrobadaMin) {
-                        if ( diff < 0) {
-                            novaCadena.append(ABCMIN[ Math.abs(ABCMIN.length - (Math.abs(diff)))]);
-                        } else {
-                            novaCadena.append(ABCMIN[Math.abs(diff)]);
-                        }
-                    } else if (cadenaTrobadaMaj) {
-                        if ( diff < 0) {
-                            novaCadena.append(ABCMAJ[ Math.abs(ABCMAJ.length - (Math.abs(diff)))]);
-                        } else {
-                            novaCadena.append(ABCMAJ[Math.abs(diff)]);
-                        }
+                        novaCadena.append(ABCMIN[Math.abs(diff) % ABCMIN.length]);
+                    } else if(cadenaTrobadaMaj) {
+                       novaCadena.append(ABCMAJ[Math.abs(diff) % ABCMAJ.length]);
                     } else {
                         novaCadena.append(cadena.charAt(i)) ;
-                    }
-                                  
-                 
+                    }      
+                    
                 
             }
            

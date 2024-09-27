@@ -3,13 +3,30 @@ public class RotX {
 
     public static final char[] ABCMIN = "aáàäbcçdeéèëfghiíìïjklmnñoóòöpqrstuúùüvwxyz".toCharArray();
     public static final char[] ABCMAJ = "AÁÀÄBCÇDEÉÈËFGHIÍÌÏJKLMNÑOÓÒÖPQRSTUÚÙÜVWXYZ".toCharArray();
-
+    public static String[] cadenes = {"MaRi. A", "PeDr.It.Ó", "Pedro MartíneZ", "ROme.o Y Ju.lieta"};
+   
     public static void main(String[] args) {
-        System.out.println(xifraRotX("MaRi. A ", 13));
-        System.out.println(desxifraRotX("ÚgÁö. G ", 13));
-        forcaBrutaRotX("ÚgÁö. G ");
-    }
+        String cadenaXifrada = "";
+        String cadenaDesxifrada = "";
+        int desplacament = 8;
+        for (int i = 0; i < cadenes.length; i++) {
+            System.out.println("Paraula: " + cadenes[i]);
+            System.out.println("Desplaçament: " + desplacament);
+            
+            cadenaXifrada = xifraRotX(cadenes[i], desplacament);
+            System.out.println("Cadena xifrada: " + cadenaXifrada);
+            
+            cadenaDesxifrada = desxifraRotX(cadenaXifrada, desplacament);
+            System.out.println("Cadena desxifrada: " + cadenaDesxifrada);
 
+            System.out.println("--------------------------");
+
+            forcaBrutaRotX(cadenaXifrada);
+
+        }
+       
+       
+    }
 
     private static String rota(String cadena, int desplacament, boolean dreta) {
         StringBuilder novaCadena = new StringBuilder();

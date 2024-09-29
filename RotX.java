@@ -32,8 +32,8 @@ public class RotX {
     }
     
     public static class ResultatIndex {
-        int index = 0;
-        boolean esMajuscula = false;
+        int index = 0; 
+        boolean esMajuscula = false; 
 
         public ResultatIndex (int index, boolean esMajuscula) {
             this.index = index;
@@ -57,7 +57,7 @@ public class RotX {
                     break;
                 }
             }
-        return resultat;
+        return resultat; //index del caràcter i si és maj o min
     }
 
     private static String rota(String cadena, int desplacament, boolean dreta) {
@@ -74,7 +74,7 @@ public class RotX {
                     index = resultat.index;
                     esMajuscula = resultat.esMajuscula;
 
-                    if (index == -1) {
+                    if (index == -1) { // és un símbol
                         novaCadena.append(cadena.charAt(i));
                         continue;
                     } 

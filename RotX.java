@@ -4,12 +4,13 @@ public class RotX {
     public static final char[] ABCMIN = "aáàäbcçdeéèëfghiíìïjklmnñoóòöpqrstuúùüvwxyz".toCharArray();
     public static final char[] ABCMAJ = "AÁÀÄBCÇDEÉÈËFGHIÍÌÏJKLMNÑOÓÒÖPQRSTUÚÙÜVWXYZ".toCharArray();
     public static String[] cadenes = {"MaRi. A", "PeDr.It.Ó", "Pedro MartíneZ", "ROme.o Y Ju.lieta"};
-   
+    public static boolean esMajuscula = false;
     public static void main(String[] args) {
         String cadenaXifrada = "";
         String cadenaDesxifrada = "";
         int desplacament = 8;
         for (int i = 0; i < cadenes.length; i++) {
+            System.out.println("\n--------------------------\n");
             System.out.println("Paraula: " + cadenes[i]);
             System.out.println("Desplaçament: " + desplacament);
             
@@ -19,13 +20,33 @@ public class RotX {
             cadenaDesxifrada = desxifraRotX(cadenaXifrada, desplacament);
             System.out.println("Cadena desxifrada: " + cadenaDesxifrada);
 
-            System.out.println("--------------------------");
+            System.out.println("\n--------------------------\n");
 
             forcaBrutaRotX(cadenaXifrada);
+            //provar amb diferents desplaçaments
+            desplacament+=2;
 
         }
        
        
+    }
+    private static int buscarIndex (char caracter) {
+        int index = -1;
+            for (int i = 0; i < ABCMIN.length; i++) {
+                if (caracter == ABCMIN[i]) {
+                    index = i;
+                    esMajuscula = false;
+                    break;
+                }
+            }
+            for (int i = 0; i < ABCMAJ.length; i++) {
+                if (caracter == ABCMAJ[i]) {
+                    index = i;
+                    esMajuscula = true;
+                    break;
+                }
+            }
+        return index;
     }
 
     private static String rota(String cadena, int desplacament, boolean dreta) {
@@ -34,58 +55,33 @@ public class RotX {
         if (dreta) {
             //xifra 
                 for (int i = 0; i < cadena.length(); i++) {
-                    boolean cadenaTrobadaMin = false;
-                    boolean cadenaTrobadaMaj = false;
-    
-                        for (int j = 0; j < ABCMIN.length; j++) {
-                            
-                            if (cadena.charAt(i) == ABCMIN[j]) {
-                                index = j;
-                                cadenaTrobadaMin = true;
-                                break;
-                            } 
-    
-                            if(cadena.charAt(i) == ABCMAJ[j]){
-                                index = j;
-                                cadenaTrobadaMaj = true;
-                                break;
-                            }
-                        }
+                    //comprovar si és maj, min o símbol
+                    index = buscarIndex(cadena.charAt(i));
 
-                        int diff = index + desplacament;
+                    if (index == -1) {
+                        novaCadena.append(cadena.charAt(i));
+                        continue;
+                    } 
 
-                        if (cadenaTrobadaMin) {
-                            novaCadena.append(ABCMIN[diff % ABCMIN.length]);
-                        } else if(cadenaTrobadaMaj) {
-                           novaCadena.append(ABCMAJ[diff % ABCMAJ.length]);
-                        } else {
-                            novaCadena.append(cadena.charAt(i)) ;
-                        }      
-                         
-                     
+                    int diff = index + desplacament;
+
+                    if (esMajuscula) {
+                        novaCadena.append(ABCMAJ[diff % ABCMAJ.length]);
+                    }  else {
+                        novaCadena.append(ABCMIN[diff % ABCMIN.length]);
+                    }
+                                    
                 }
-        
            
         } else {    
            //desxifra
             for (int i = 0; i < cadena.length(); i++) {
-                boolean cadenaTrobadaMin = false;
-                boolean cadenaTrobadaMaj = false;
+                    index = buscarIndex(cadena.charAt(i));
 
-                    for (int j = 0; j < ABCMIN.length; j++) {
-                        
-                        if (cadena.charAt(i) == ABCMIN[j]) {
-                            index = j;
-                            cadenaTrobadaMin = true;
-                            break;
-                        } 
-
-                        if(cadena.charAt(i) == ABCMAJ[j]){
-                            index = j;
-                            cadenaTrobadaMaj = true;
-                            break;
-                        }
-                    }
+                    if (index == -1) {
+                        novaCadena.append(cadena.charAt(i));
+                        continue;
+                    } 
 
                     int diff = index - desplacament; 
 
@@ -93,14 +89,11 @@ public class RotX {
                         diff = diff + ABCMIN.length;
                     }
 
-                    if (cadenaTrobadaMin) {
-                        novaCadena.append(ABCMIN[Math.abs(diff) % ABCMIN.length]);
-                    } else if(cadenaTrobadaMaj) {
-                       novaCadena.append(ABCMAJ[Math.abs(diff) % ABCMAJ.length]);
+                    if (esMajuscula) {
+                        novaCadena.append(ABCMAJ[Math.abs(diff) % ABCMAJ.length]);
                     } else {
-                        novaCadena.append(cadena.charAt(i)) ;
-                    }      
-                    
+                       novaCadena.append(ABCMIN[Math.abs(diff) % ABCMIN.length]);
+                    }          
                 
             }
            

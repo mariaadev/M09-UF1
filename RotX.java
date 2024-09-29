@@ -4,7 +4,7 @@ public class RotX {
     public static final char[] ABCMIN = "aáàäbcçdeéèëfghiíìïjklmnñoóòöpqrstuúùüvwxyz".toCharArray();
     public static final char[] ABCMAJ = "AÁÀÄBCÇDEÉÈËFGHIÍÌÏJKLMNÑOÓÒÖPQRSTUÚÙÜVWXYZ".toCharArray();
     public static String[] cadenes = {"MaRi. A", "PeDr.It.Ó", "Pedro MartíneZ", "ROme.o Y Ju.lieta"};
-    public static boolean esMajuscula = false;
+  
     public static void main(String[] args) {
         String cadenaXifrada = "";
         String cadenaDesxifrada = "";
@@ -30,34 +30,47 @@ public class RotX {
        
        
     }
+    
+    public static class ResultatIndex {
+        int index = 0;
+        boolean esMajuscula = false;
 
-    private static int buscarIndex (char caracter) {
-        int index = -1;
+        public ResultatIndex (int index, boolean esMajuscula) {
+            this.index = index;
+            this.esMajuscula = esMajuscula;
+        }
+    }
+    
+    private static ResultatIndex buscarIndex (char caracter) {
+        ResultatIndex resultat = new ResultatIndex( -1, false);
             for (int i = 0; i < ABCMIN.length; i++) {
                 if (caracter == ABCMIN[i]) {
-                    index = i;
-                    esMajuscula = false;
+                    resultat = new ResultatIndex(i, false);
                     break;
                 }
             }
             for (int i = 0; i < ABCMAJ.length; i++) {
                 if (caracter == ABCMAJ[i]) {
-                    index = i;
-                    esMajuscula = true;
+                    resultat = new ResultatIndex(i,true); ;
                     break;
                 }
             }
-        return index;
+        return resultat;
     }
 
     private static String rota(String cadena, int desplacament, boolean dreta) {
         StringBuilder novaCadena = new StringBuilder();
-        int index = 0;
+        ResultatIndex resultat;
+        int index;
         int diff = 0;
+        boolean esMajuscula = false;
             //xifra 
                 for (int i = 0; i < cadena.length(); i++) {
                     //comprovar si és maj, min o símbol
-                    index = buscarIndex(cadena.charAt(i));
+
+                    resultat = buscarIndex(cadena.charAt(i));
+                    index = resultat.index;
+                    esMajuscula = resultat.esMajuscula;
 
                     if (index == -1) {
                         novaCadena.append(cadena.charAt(i));

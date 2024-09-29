@@ -30,6 +30,7 @@ public class RotX {
        
        
     }
+
     private static int buscarIndex (char caracter) {
         int index = -1;
             for (int i = 0; i < ABCMIN.length; i++) {
@@ -52,7 +53,7 @@ public class RotX {
     private static String rota(String cadena, int desplacament, boolean dreta) {
         StringBuilder novaCadena = new StringBuilder();
         int index = 0;
-        if (dreta) {
+        int diff = 0;
             //xifra 
                 for (int i = 0; i < cadena.length(); i++) {
                     //comprovar si és maj, min o símbol
@@ -63,7 +64,15 @@ public class RotX {
                         continue;
                     } 
 
-                    int diff = index + desplacament;
+                    if (dreta) {
+                         diff = index + desplacament;
+                    } else {
+                        diff = index - desplacament; 
+                        if (diff < 0) {
+                            diff = Math.abs(diff + ABCMIN.length);
+                        }
+                    }
+                   
 
                     if (esMajuscula) {
                         novaCadena.append(ABCMAJ[diff % ABCMAJ.length]);
@@ -73,31 +82,7 @@ public class RotX {
                                     
                 }
            
-        } else {    
-           //desxifra
-            for (int i = 0; i < cadena.length(); i++) {
-                    index = buscarIndex(cadena.charAt(i));
-
-                    if (index == -1) {
-                        novaCadena.append(cadena.charAt(i));
-                        continue;
-                    } 
-
-                    int diff = index - desplacament; 
-
-                    if (diff < 0) {
-                        diff = diff + ABCMIN.length;
-                    }
-
-                    if (esMajuscula) {
-                        novaCadena.append(ABCMAJ[Math.abs(diff) % ABCMAJ.length]);
-                    } else {
-                       novaCadena.append(ABCMIN[Math.abs(diff) % ABCMIN.length]);
-                    }          
-                
-            }
-           
-        }
+        
 
         return novaCadena.toString();
     }
@@ -116,7 +101,7 @@ public class RotX {
         System.out.println("Resultat desxifrant amb: ");
         for (int i = 0; i < RotX.ABCMIN.length; i++ ) {
             String cadenaDesxifrada = desxifraRotX(cadenaXifrada, i);
-            System.out.println(i + " desplaçaments: " + cadenaDesxifrada);
+            System.out.println("\n" + i + ": " + cadenaDesxifrada + "\n");
         }
     }
 }

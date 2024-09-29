@@ -69,11 +69,10 @@ public class RotX {
                     } else {
                         diff = index - desplacament; 
                         if (diff < 0) {
-                            diff = Math.abs(diff + ABCMIN.length);
+                            diff = diff + ABCMIN.length;
                         }
                     }
                    
-
                     if (esMajuscula) {
                         novaCadena.append(ABCMAJ[diff % ABCMAJ.length]);
                     }  else {
@@ -81,8 +80,6 @@ public class RotX {
                     }
                                     
                 }
-           
-        
 
         return novaCadena.toString();
     }

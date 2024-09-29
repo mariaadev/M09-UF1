@@ -45,13 +45,15 @@ public class RotX {
         ResultatIndex resultat = new ResultatIndex( -1, false);
             for (int i = 0; i < ABCMIN.length; i++) {
                 if (caracter == ABCMIN[i]) {
-                    resultat = new ResultatIndex(i, false);
+                    resultat.index = i;
+                    resultat.esMajuscula = false;
                     break;
                 }
             }
             for (int i = 0; i < ABCMAJ.length; i++) {
                 if (caracter == ABCMAJ[i]) {
-                    resultat = new ResultatIndex(i,true); ;
+                    resultat.index = i;
+                    resultat.esMajuscula = true;
                     break;
                 }
             }

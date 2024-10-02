@@ -1,6 +1,4 @@
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 public class Monoalfabetic {
@@ -10,6 +8,7 @@ public class Monoalfabetic {
     public static void main(String[] args) {
         inicialitzarLlista();
         permutaAlfabet(abcPermutat);
+        xifraMonoAlfa("hola");
     }
 
     public static void inicialitzarLlista() {
@@ -27,7 +26,25 @@ public class Monoalfabetic {
     public static String xifraMonoAlfa(String cadena) {
         StringBuilder cadenaxifrada = new StringBuilder();
         for (int i = 0; i < cadena.length(); i++) {
-            
+            char lletra = cadena.charAt(i);
+            //index lletra cadena
+            int index = abc.indexOf(lletra);
+
+            if (index == -1) {
+                lletra = Character.toLowerCase(lletra);
+
+                index = abc.indexOf(lletra);
+                if (index == -1) {
+                    //simbol
+                    cadenaxifrada.append(cadena.charAt(i));
+                    break;
+                } 
+                
+                cadenaxifrada.append( (Character)(abcPermutat.get(index))) ;
+              
+            } else {
+                cadenaxifrada.append(abcPermutat.get(index));
+            }
             //identifica l'index de la lletra i mirar si es min o maj
             //reemplazar por el indice encontrado de la letra pero del array permutado
        }

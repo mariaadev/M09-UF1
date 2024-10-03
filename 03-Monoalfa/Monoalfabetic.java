@@ -3,12 +3,14 @@ import java.util.Collections;
 
 public class Monoalfabetic {
     public static final char[] ABCMIN = "aáàäbcçdeéèëfghiíìïjklmnñoóòöpqrstuúùüvwxyz".toCharArray();
-    public static ArrayList abc = new ArrayList<Character>();
-    public static ArrayList abcPermutat = new ArrayList<Character>();
+    public static ArrayList<Character> abc = new ArrayList<Character>();
+    public static ArrayList<Character> abcPermutat = new ArrayList<Character>();
     public static void main(String[] args) {
         inicialitzarLlista();
         permutaAlfabet(abcPermutat);
-        xifraMonoAlfa("hola");
+        System.out.println(abc);
+        System.out.println(abcPermutat);
+        System.out.println(xifraMonoAlfa("hola"));
     }
 
     public static void inicialitzarLlista() {
@@ -18,7 +20,7 @@ public class Monoalfabetic {
             }
      }
  
-    public static void permutaAlfabet(ArrayList alfabet) {
+    public static void permutaAlfabet(ArrayList<Character> alfabet) {
        Collections.shuffle(alfabet);
 
     }

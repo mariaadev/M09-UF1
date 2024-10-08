@@ -16,10 +16,8 @@ public class Monoalfabetic {
         for (int i = 0; i < EXEMPLES.length; i++) {
             cadenaxifrada = xifraMonoAlfa(EXEMPLES[i]);
             System.out.println(cadenaxifrada);
-            for (int j = 0; j < EXEMPLES.length; j++) {
-                cadenadesxifrada = desxifraMonoAlfa(cadenaxifrada);
-                System.out.println(cadenadesxifrada);
-            }
+            cadenadesxifrada = desxifraMonoAlfa(cadenaxifrada);
+            System.out.println(cadenadesxifrada);
         }
     }
 

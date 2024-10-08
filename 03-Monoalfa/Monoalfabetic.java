@@ -38,6 +38,7 @@ public class Monoalfabetic {
             int index = abc.indexOf(lletra);
 
             if (index == -1) {
+                //majuscula
                 lletra = Character.toLowerCase(lletra);
 
                 index = abc.indexOf(lletra);
@@ -47,7 +48,7 @@ public class Monoalfabetic {
                     continue;
                 } 
                 
-                cadenaxifrada.append( (Character)(abcPermutat.get(index))) ;
+                cadenaxifrada.append( Character.toUpperCase((Character)(abcPermutat.get(index)))) ;
               
             } else {
                 cadenaxifrada.append(abcPermutat.get(index));
@@ -75,7 +76,7 @@ public class Monoalfabetic {
                     continue;
                 } 
                 
-                cadenadesxifrada.append( (Character)(abc.get(index))) ;
+                cadenadesxifrada.append( Character.toUpperCase((Character)(abc.get(index)))) ;
               
             } else {
                 cadenadesxifrada.append(abc.get(index));

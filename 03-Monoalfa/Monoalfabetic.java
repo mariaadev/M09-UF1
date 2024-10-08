@@ -10,9 +10,9 @@ public class Monoalfabetic {
         String cadenadesxifrada;
         inicialitzarLlista();
         permutaAlfabet(abcPermutat);
-        System.out.println(abc);
-        System.out.println(abcPermutat);
-        cadenaxifrada = xifraMonoAlfa("hola");
+        System.out.println("Alfabet :" + abc);
+        System.out.println("Alfabet Permutat : " + abcPermutat);
+        cadenaxifrada = xifraMonoAlfa("Avinguda de la Vidá");
         System.out.println(cadenaxifrada);
         cadenadesxifrada = desxifraMonoAlfa(cadenaxifrada);
         System.out.println(cadenadesxifrada);
@@ -44,7 +44,7 @@ public class Monoalfabetic {
                 if (index == -1) {
                     //simbol
                     cadenaxifrada.append(cadena.charAt(i));
-                    break;
+                    continue;
                 } 
                 
                 cadenaxifrada.append( (Character)(abcPermutat.get(index))) ;
@@ -57,9 +57,7 @@ public class Monoalfabetic {
        }
        return cadenaxifrada.toString();
     }
-
-  
-        
+    
     public static String desxifraMonoAlfa(String cadena) {
         StringBuilder cadenadesxifrada = new StringBuilder();
         for (int i = 0; i < cadena.length(); i++) {
@@ -74,7 +72,7 @@ public class Monoalfabetic {
                 if (index == -1) {
                     //simbol
                     cadenadesxifrada.append(cadena.charAt(i));
-                    break;
+                    continue;
                 } 
                 
                 cadenadesxifrada.append( (Character)(abc.get(index))) ;

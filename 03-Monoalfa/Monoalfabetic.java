@@ -5,6 +5,7 @@ public class Monoalfabetic {
     public static final char[] ABCMIN = "aáàäbcçdeéèëfghiíìïjklmnñoóòöpqrstuúùüvwxyz".toCharArray();
     public static ArrayList<Character> abc = new ArrayList<Character>();
     public static ArrayList<Character> abcPermutat = new ArrayList<Character>();
+    public static final String[] EXEMPLES = {"Adrià", "Silvia", "Avinguda Amèrica", "Sebastián"};
     public static void main(String[] args) {
         String cadenaxifrada;
         String cadenadesxifrada;
@@ -12,10 +13,14 @@ public class Monoalfabetic {
         permutaAlfabet(abcPermutat);
         System.out.println("Alfabet :" + abc);
         System.out.println("Alfabet Permutat : " + abcPermutat);
-        cadenaxifrada = xifraMonoAlfa("Avinguda de la Vidá");
-        System.out.println(cadenaxifrada);
-        cadenadesxifrada = desxifraMonoAlfa(cadenaxifrada);
-        System.out.println(cadenadesxifrada);
+        for (int i = 0; i < EXEMPLES.length; i++) {
+            cadenaxifrada = xifraMonoAlfa(EXEMPLES[i]);
+            System.out.println(cadenaxifrada);
+            for (int j = 0; j < EXEMPLES.length; j++) {
+                cadenadesxifrada = desxifraMonoAlfa(cadenaxifrada);
+                System.out.println(cadenadesxifrada);
+            }
+        }
     }
 
     public static void inicialitzarLlista() {

@@ -5,7 +5,7 @@ public class Monoalfabetic {
     public static final char[] ABCMIN = "aáàäbcçdeéèëfghiíìïjklmnñoóòöpqrstuúùüvwxyz".toCharArray();
     public static ArrayList<Character> abc = new ArrayList<Character>();
     public static ArrayList<Character> abcPermutat = new ArrayList<Character>();
-    public static final String[] EXEMPLES = {"Adrià", "Silvia", "Avinguda Amèrica", "Sebastián"};
+    public static final String[] EXEMPLES = {"Adrià", "Silvia", "Avinguda Amèrica", "Sebastián?", "Tinc gana."};
     public static void main(String[] args) {
         String cadenaxifrada;
         String cadenadesxifrada;
@@ -32,64 +32,50 @@ public class Monoalfabetic {
  
     public static void permutaAlfabet(ArrayList<Character> alfabet) {
        Collections.shuffle(alfabet);
-
     }
     
-    public static String xifraMonoAlfa(String cadena) {
-        StringBuilder cadenaxifrada = new StringBuilder();
+    public static String processaMonoalfa(String cadena, boolean dreta) {
+        StringBuilder cadenaProcessada = new StringBuilder();
+            
         for (int i = 0; i < cadena.length(); i++) {
-            char lletra = cadena.charAt(i);
-            //index lletra cadena
-            int index = abc.indexOf(lletra);
+                char lletra = cadena.charAt(i);
+                //index lletra cadena
+                int index = dreta ? abc.indexOf(lletra) :  abcPermutat.indexOf(lletra);
 
-            if (index == -1) {
-                //majuscula
-                lletra = Character.toLowerCase(lletra);
-
-                index = abc.indexOf(lletra);
                 if (index == -1) {
-                    //simbol
-                    cadenaxifrada.append(cadena.charAt(i));
-                    continue;
-                } 
+                    //majuscula
+                    lletra = Character.toLowerCase(lletra);
+                    //si es xifra busquem a l'abc original , si es desxifra busquem a l' abcPermutat
+                    index = dreta ? abc.indexOf(lletra) :  abcPermutat.indexOf(lletra);
+
+                    if (index == -1) {
+                        //simbol
+                        cadenaProcessada.append(cadena.charAt(i));
+                        continue;
+                    } 
+                    char caracterPermutat = Character.toUpperCase((Character)( dreta ? 
+                                                                                abcPermutat.get(index) : 
+                                                                                abc.get(index)));
+                    cadenaProcessada.append( caracterPermutat);
                 
-                cadenaxifrada.append( Character.toUpperCase((Character)(abcPermutat.get(index)))) ;
-              
-            } else {
-                cadenaxifrada.append(abcPermutat.get(index));
+                } else {
+                    char caracterPermutat = dreta ? abcPermutat.get(index) : abc.get(index);
+                    cadenaProcessada.append(caracterPermutat);
+                }
+                //identifica l'index de la lletra i mirar si es min o maj
+                //reemplazar por el indice encontrado de la letra pero del array permutado
             }
-            //identifica l'index de la lletra i mirar si es min o maj
-            //reemplazar por el indice encontrado de la letra pero del array permutado
-       }
-       return cadenaxifrada.toString();
+
+        return cadenaProcessada.toString();
+        
+    }
+
+    public static String xifraMonoAlfa(String cadena) {
+       return processaMonoalfa(cadena, true);
     }
     
     public static String desxifraMonoAlfa(String cadena) {
-        StringBuilder cadenadesxifrada = new StringBuilder();
-        for (int i = 0; i < cadena.length(); i++) {
-            char lletra = cadena.charAt(i);
-            //index lletra cadena
-            int index = abcPermutat.indexOf(lletra);
-
-            if (index == -1) {
-                lletra = Character.toLowerCase(lletra);
-
-                index = abcPermutat.indexOf(lletra);
-                if (index == -1) {
-                    //simbol
-                    cadenadesxifrada.append(cadena.charAt(i));
-                    continue;
-                } 
-                
-                cadenadesxifrada.append( Character.toUpperCase((Character)(abc.get(index)))) ;
-              
-            } else {
-                cadenadesxifrada.append(abc.get(index));
-            }
-            //identifica l'index de la lletra i mirar si es min o maj
-            //reemplazar por el indice encontrado de la letra pero del array permutado
-       }
-       return cadenadesxifrada.toString();
+        return processaMonoalfa(cadena, false);
     }
 
 }

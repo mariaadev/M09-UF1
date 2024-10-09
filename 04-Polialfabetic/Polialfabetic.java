@@ -7,14 +7,15 @@ public class Polialfabetic {
     public static ArrayList<Character> alfabet = new ArrayList<Character>();
     public static ArrayList<Character> abcPermutat = new ArrayList<Character>();
     
-    public static int clauSecreta = 54353453;
+    public static long clauSecreta = 54353453;
     public static Random rand;
+    public static int numRand; 
     public static void main(String[] args) {
         String msgs[] = {"Test 01 àrbritre, coixí, Perímetre",
         "Test 02 Taüll, DÍA, año",
         "Test 03 Peça, Òrrius, Bòvila"};
         String msgsXifrats[] = new String[msgs.length];
-        
+        inicialitzarLlista();
         System.out.println("Xifratge:\n--------");
         for (int i = 0; i < msgs.length; i++) {
             initRandom(clauSecreta);
@@ -31,9 +32,16 @@ public class Polialfabetic {
         }
         
 
-    private static void initRandom(int clauSecreta2) {
+    private static void initRandom(long clauSecreta2) {
         //inicialitzar el núm random amb la clau secreta
         rand = new Random(clauSecreta2);
+        //System.out.println(rand.nextInt(clauSecreta2));
+    }
+    public static void inicialitzarLlista() {
+        for(char c : ABCMIN) {
+            alfabet.add(c);
+            abcPermutat.add(c);
+        }
     }
 
     public static String processaPoliAlfa(String cadena, boolean dreta) {
@@ -46,9 +54,10 @@ public class Polialfabetic {
             if (index == -1) {
          
                 lletra = Character.toLowerCase(lletra);
-        
+                
+                
                 index = dreta ? alfabet.indexOf(lletra) :  abcPermutat.indexOf(lletra);
-
+                
                 if (index == -1) {
                     //simbol
                     cadenaProcessada.append(cadena.charAt(i));
@@ -57,20 +66,23 @@ public class Polialfabetic {
                 char caracterPermutat = Character.toUpperCase((Character)( dreta ? 
                                                                             abcPermutat.get(index) : 
                                                                             alfabet.get(index)));
+                
+                permutaAlfabet(abcPermutat);
                 cadenaProcessada.append( caracterPermutat);
             
             } else {
                 char caracterPermutat = dreta ? abcPermutat.get(index) : alfabet.get(index);
+                permutaAlfabet(abcPermutat);
                 cadenaProcessada.append(caracterPermutat);
             }
 
-            permutaAlfabet();
+            
         }
 
         return cadenaProcessada.toString();
     }
-    public static void permutaAlfabet() {
-        Collections.shuffle(abcPermutat, rand);
+    public static void permutaAlfabet(ArrayList<Character> alfabet) {
+        Collections.shuffle(alfabet, rand);
     }
     public static String xifraPoliAlfa( String msg ) {
         return processaPoliAlfa(msg, true);

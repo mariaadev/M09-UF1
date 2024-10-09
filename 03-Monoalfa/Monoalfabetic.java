@@ -7,10 +7,14 @@ public class Monoalfabetic {
     public static ArrayList<Character> abcPermutat = new ArrayList<Character>();
     public static final String[] EXEMPLES = {"Adrià", "Silvia", "Avinguda Amèrica", "Sebastián?", "Tinc gana."};
     public static void main(String[] args) {
-        String cadenaxifrada;
-        String cadenadesxifrada;
+        String cadenaxifrada = "";
+        String cadenadesxifrada = "";
         inicialitzarLlista();
         permutaAlfabet(abcPermutat);
+        mostraExemples(cadenaxifrada,cadenadesxifrada,EXEMPLES);
+    }
+
+    public static void mostraExemples(String cadenaxifrada, String cadenadesxifrada, String[] EXEMPLES) {
         System.out.println("Alfabet :" + abc);
         System.out.println("Alfabet Permutat : " + abcPermutat);
         System.out.println("-------------------");

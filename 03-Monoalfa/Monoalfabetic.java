@@ -13,11 +13,13 @@ public class Monoalfabetic {
         permutaAlfabet(abcPermutat);
         System.out.println("Alfabet :" + abc);
         System.out.println("Alfabet Permutat : " + abcPermutat);
+        System.out.println("-------------------");
         for (int i = 0; i < EXEMPLES.length; i++) {
             cadenaxifrada = xifraMonoAlfa(EXEMPLES[i]);
             System.out.println(cadenaxifrada);
             cadenadesxifrada = desxifraMonoAlfa(cadenaxifrada);
             System.out.println(cadenadesxifrada);
+            System.out.println("-------------------");
         }
     }
 

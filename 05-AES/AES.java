@@ -1,6 +1,8 @@
+import java.security.MessageDigest;
 import java.security.SecureRandom;
 
 import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 
 public class AES {
     public static final String ALGORISME_XIFRAT = "AES";
@@ -37,16 +39,22 @@ public class AES {
     public static byte[] xifraAES(String msg, String clau) throws Exception {
         
         //Obtenir els bytes de l’String
-       byte[] msgByte =  msg.getBytes();
+        byte[] msgByte =  msg.getBytes();
         // Genera IvParameterSpec
-        int ivSize = 16;
-        iv = new byte[ivSize];
+        iv = new byte[MIDA_IV];
         SecureRandom random = new SecureRandom();
         random.nextBytes(iv);
         IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
+        
         // Genera hash
-
+        MessageDigest digest = MessageDigest.getInstance(ALGORISME_HASH);
+        digest.update(CLAU.getBytes("UTF-8"));
+        byte[] keyBytes = new byte[32];
+        System.arraycopy(digest.digest(), 0, keyBytes, 0, keyBytes.length);
+        SecretKeySpec secretKeySpec = new SecretKeySpec(keyBytes, ALGORISME_XIFRAT);
+        
         // Encrypt.
+        
         // Combinar IV i part xifrada.
         // return iv+msgxifrat
         return ;

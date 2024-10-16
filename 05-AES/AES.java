@@ -1,6 +1,7 @@
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 
+import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -49,29 +50,49 @@ public class AES {
         // Genera hash
         MessageDigest digest = MessageDigest.getInstance(ALGORISME_HASH);
         digest.update(CLAU.getBytes("UTF-8"));
-        byte[] keyBytes = new byte[32];
+        byte[] keyBytes = new byte[16];
         System.arraycopy(digest.digest(), 0, keyBytes, 0, keyBytes.length);
         SecretKeySpec secretKeySpec = new SecretKeySpec(keyBytes, ALGORISME_XIFRAT);
         
         // Encrypt.
-        
+        Cipher cipher = Cipher.getInstance(FORMAT_AES);
+        cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec);
+        byte[] encrypted = cipher.doFinal(msgByte);
+
         // Combinar IV i part xifrada.
+        byte[] encryptedIVAndText = new byte[MIDA_IV + encrypted.length];
+        System.arraycopy(iv, 0, encryptedIVAndText, 0, MIDA_IV);
+        System.arraycopy(encrypted, 0, encryptedIVAndText, MIDA_IV, encrypted.length);
         // return iv+msgxifrat
-        return ;
+        return encryptedIVAndText;
     }
 
     public static String desxifraAES (byte[] bIvIMsgXifrat , String clau) throws Exception {
         // Extreure l'IV.
+        byte[] iv = new byte[MIDA_IV];
+        System.arraycopy(bIvIMsgXifrat, 0, iv, 0, iv.length);
+        IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
+
         // Extreure la part xifrada.
+        int encryptedSize = bIvIMsgXifrat.length - MIDA_IV;
+        byte[] encryptedBytes = new byte[encryptedSize];
+        System.arraycopy(bIvIMsgXifrat, MIDA_IV, encryptedBytes, 0, encryptedSize);
+        
         // Fer hash de la clau
+        byte[] keyBytes = new byte[16];
+        MessageDigest md = MessageDigest.getInstance(ALGORISME_HASH);
+        md.update(clau.getBytes());
+        System.arraycopy(md.digest(), 0, keyBytes, 0, keyBytes.length);
+        SecretKeySpec secretKeySpec = new SecretKeySpec(keyBytes, ALGORISME_XIFRAT);
+        
         // Desxifrar.
+        Cipher cipherDecrypt = Cipher.getInstance(FORMAT_AES);
+        cipherDecrypt.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
+        byte[] decrypted = cipherDecrypt.doFinal(encryptedBytes);
+
         // return String desxifrat
-        return "";
+        return new String(decrypted, "UTF-8");
+
     }
 
-    public static byte[] getNonce(int length) {
-        final byte[] nonce = new byte[length];
-        new SecureRandom().nextBytes(nonce);
-        return nonce;
-    }
 }

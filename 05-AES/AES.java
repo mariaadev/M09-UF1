@@ -1,3 +1,7 @@
+import java.security.SecureRandom;
+
+import javax.crypto.spec.IvParameterSpec;
+
 public class AES {
     public static final String ALGORISME_XIFRAT = "AES";
     public static final String ALGORISME_HASH = "SHA-256";
@@ -31,9 +35,17 @@ public class AES {
         }
     }
     public static byte[] xifraAES(String msg, String clau) throws Exception {
+        
         //Obtenir els bytes de l’String
+       byte[] msgByte =  msg.getBytes();
         // Genera IvParameterSpec
+        int ivSize = 16;
+        iv = new byte[ivSize];
+        SecureRandom random = new SecureRandom();
+        random.nextBytes(iv);
+        IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
         // Genera hash
+
         // Encrypt.
         // Combinar IV i part xifrada.
         // return iv+msgxifrat
@@ -47,5 +59,11 @@ public class AES {
         // Desxifrar.
         // return String desxifrat
         return "";
+    }
+
+    public static byte[] getNonce(int length) {
+        final byte[] nonce = new byte[length];
+        new SecureRandom().nextBytes(nonce);
+        return nonce;
     }
 }

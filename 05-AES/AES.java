@@ -43,8 +43,10 @@ public class AES {
         byte[] msgByte =  msg.getBytes();
         // Genera IvParameterSpec
         iv = new byte[MIDA_IV];
+        //Generador números random de forma segura
         SecureRandom random = new SecureRandom();
         random.nextBytes(iv);
+        //Inicialitzador de vector a partir dels bytes especificats
         IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
         
         // Genera hash
@@ -52,11 +54,14 @@ public class AES {
         digest.update(CLAU.getBytes("UTF-8"));
         byte[] keyBytes = new byte[16];
         System.arraycopy(digest.digest(), 0, keyBytes, 0, keyBytes.length);
+        //Construeix una clau secreta a partir de l'array de bytes.
         SecretKeySpec secretKeySpec = new SecretKeySpec(keyBytes, ALGORISME_XIFRAT);
         
-        // Encrypt.
+        // Xifrador al qual li passem el format de encriptació
         Cipher cipher = Cipher.getInstance(FORMAT_AES);
+        //inicialitzar xifrador
         cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec);
+        //encriptar missatge
         byte[] encrypted = cipher.doFinal(msgByte);
 
         // Combinar IV i part xifrada.

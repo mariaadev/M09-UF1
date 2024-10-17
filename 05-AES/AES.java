@@ -52,21 +52,25 @@ public class AES {
         // Genera hash
         MessageDigest digest = MessageDigest.getInstance(ALGORISME_HASH);
         digest.update(CLAU.getBytes("UTF-8"));
+        //inicialitzar keybytes amb 16 btytes
         byte[] keyBytes = new byte[16];
+        //copiar el resultat del hash a l'array de keyBytes que s'utilitza com a clau per AES
         System.arraycopy(digest.digest(), 0, keyBytes, 0, keyBytes.length);
         //Construeix una clau secreta a partir de l'array de bytes.
         SecretKeySpec secretKeySpec = new SecretKeySpec(keyBytes, ALGORISME_XIFRAT);
         
         // Xifrador al qual li passem el format de encriptació
         Cipher cipher = Cipher.getInstance(FORMAT_AES);
-        //inicialitzar xifrador
+        //inicialitzar xifrador a mode encriptar
         cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec);
         //encriptar missatge
         byte[] encrypted = cipher.doFinal(msgByte);
 
         // Combinar IV i part xifrada.
         byte[] encryptedIVAndText = new byte[MIDA_IV + encrypted.length];
+        //copiar iv a l'array encryptedIVandText
         System.arraycopy(iv, 0, encryptedIVAndText, 0, MIDA_IV);
+        // copia el text xifrat (sense l'iv) a l'array encryptedIVandText
         System.arraycopy(encrypted, 0, encryptedIVAndText, MIDA_IV, encrypted.length);
         // return iv+msgxifrat
         return encryptedIVAndText;
@@ -75,12 +79,14 @@ public class AES {
     public static String desxifraAES (byte[] bIvIMsgXifrat , String clau) throws Exception {
         // Extreure l'IV.
         byte[] iv = new byte[MIDA_IV];
+        //extreure l'iv del missatge xifrat copiant-lo a l'array iv
         System.arraycopy(bIvIMsgXifrat, 0, iv, 0, iv.length);
         IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
 
         // Extreure la part xifrada.
         int encryptedSize = bIvIMsgXifrat.length - MIDA_IV;
         byte[] encryptedBytes = new byte[encryptedSize];
+       
         System.arraycopy(bIvIMsgXifrat, MIDA_IV, encryptedBytes, 0, encryptedSize);
         
         // Fer hash de la clau
@@ -92,10 +98,11 @@ public class AES {
         
         // Desxifrar.
         Cipher cipherDecrypt = Cipher.getInstance(FORMAT_AES);
+        //Inicialitzar xifrador en mode desxifrar
         cipherDecrypt.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
         byte[] decrypted = cipherDecrypt.doFinal(encryptedBytes);
 
-        // return String desxifrat
+        // convertir bytes desxifrats a String
         return new String(decrypted, "UTF-8");
 
     }

@@ -11,9 +11,10 @@ public class XifradorAES {
     public static final String ALGORISME_HASH = "SHA-256";
     public static final String FORMAT_AES = "AES/CBC/PKCS5Padding";
 
-    private static final int MIDA_IV = 16;
-    private static final String CLAU = "LaClauSecretaQueVulguis";
-    public static void main(String[] args) {
+    public static final int MIDA_IV = 16;
+    public static final String CLAU = "LaClauSecretaQueVulguis";
+    
+    public  void main(String[] args) {
         String msgs[] = {"Lorem ipsum dicet",
         
         "Hola Andrés cómo está tu cuñado",
@@ -37,7 +38,7 @@ public class XifradorAES {
         System.out.println("DEC: " + desxifrat);
         }
     }
-    public static byte[] xifraAES(String msg, String clau) throws Exception {
+    public byte[] xifraAES(String msg, String clau) throws Exception {
         
         //Obtenir els bytes de l’String
         byte[] msgByte =  msg.getBytes();
@@ -69,14 +70,14 @@ public class XifradorAES {
         return encryptedIVAndText;
     }
 
-    public static byte[] generaIV() {
+    private byte[] generaIV() {
         byte[] iv = new byte[MIDA_IV];
         SecureRandom random = new SecureRandom();
         random.nextBytes(iv);
         return iv;
     }
 
-    public static SecretKeySpec generaSecretKey (String CLAU) throws Exception {
+    private SecretKeySpec generaSecretKey (String CLAU) throws Exception {
         MessageDigest digest = MessageDigest.getInstance(ALGORISME_HASH);
         byte[] keyHash = digest.digest(CLAU.getBytes( StandardCharsets.UTF_8));
         //inicialitzar keybytes amb 16 btytes si és xifrat 
@@ -87,7 +88,7 @@ public class XifradorAES {
         return new SecretKeySpec(keyBytes, ALGORISME_XIFRAT);
     }
 
-    public static String desxifraAES (byte[] bIvIMsgXifrat , String clau) throws Exception {
+    private String desxifraAES (byte[] bIvIMsgXifrat , String clau) throws Exception {
         // Extreure l'IV.
         byte[] iv = new byte[MIDA_IV];
         //extreure l'iv del missatge xifrat copiant-lo a l'array iv

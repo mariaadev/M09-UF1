@@ -3,9 +3,9 @@ public class XifradorRotX {
 
     public static final char[] ABCMIN = "aáàäbcçdeéèëfghiíìïjklmnñoóòöpqrstuúùüvwxyz".toCharArray();
     public static final char[] ABCMAJ = "AÁÀÄBCÇDEÉÈËFGHIÍÌÏJKLMNÑOÓÒÖPQRSTUÚÙÜVWXYZ".toCharArray();
-    public static String[] cadenes = {"MaRi. A", "PeDr.It.Ó", "Pedro MartíneZ", "ROme.o Y Ju.lieta"};
+    private String[] cadenes = {"MaRi. A", "PeDr.It.Ó", "Pedro MartíneZ", "ROme.o Y Ju.lieta"};
   
-    public static void main(String[] args) {
+    public void main(String[] args) {
         String cadenaXifrada = "";
         String cadenaDesxifrada = "";
         int desplacament = 8;
@@ -31,7 +31,7 @@ public class XifradorRotX {
        
     }
     
-    public static class ResultatIndex {
+    private class ResultatIndex {
         int index = 0; 
         boolean esMajuscula = false; 
 
@@ -41,7 +41,7 @@ public class XifradorRotX {
         }
     }
     
-    private static ResultatIndex buscarIndex (char caracter) {
+    private  ResultatIndex buscarIndex (char caracter) {
         ResultatIndex resultat = new ResultatIndex( -1, false);
             for (int i = 0; i < ABCMIN.length; i++) {
                 if (caracter == ABCMIN[i]) {
@@ -60,7 +60,7 @@ public class XifradorRotX {
         return resultat; //index del caràcter i si és maj o min
     }
 
-    private static String rota(String cadena, int desplacament, boolean dreta) {
+    private  String rota(String cadena, int desplacament, boolean dreta) {
         StringBuilder novaCadena = new StringBuilder();
         ResultatIndex resultat;
         int index;
@@ -99,15 +99,15 @@ public class XifradorRotX {
         return novaCadena.toString();
     }
 
-    private static String  xifraRotX(String cadena, int desplacament) {
+    private String  xifraRotX(String cadena, int desplacament) {
         return rota(cadena,desplacament,true);
     }
    
-    private static String desxifraRotX(String cadena, int desplacament) {
+    private String desxifraRotX(String cadena, int desplacament) {
        return rota(cadena,desplacament,false);
     }
 
-    private static void forcaBrutaRotX( String cadenaXifrada ) {
+    private void forcaBrutaRotX( String cadenaXifrada ) {
         //provar totes les possibilitats
         System.out.println("Desxifrant cadena...");
         System.out.println("Resultat desxifrant amb: ");

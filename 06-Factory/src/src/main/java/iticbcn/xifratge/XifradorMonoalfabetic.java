@@ -4,10 +4,11 @@ import java.util.Collections;
 
 public class XifradorMonoalfabetic {
     public static final char[] ABCMIN = "aáàäbcçdeéèëfghiíìïjklmnñoóòöpqrstuúùüvwxyz".toCharArray();
-    public static ArrayList<Character> abc = new ArrayList<Character>();
-    public static ArrayList<Character> abcPermutat = new ArrayList<Character>();
+    private ArrayList<Character> abc = new ArrayList<Character>();
+    private ArrayList<Character> abcPermutat = new ArrayList<Character>();
     public static final String[] EXEMPLES = {"Adrià", "Silvia", "Avinguda Amèrica", "Sebastián?", "Tinc gana."};
-    public static void main(String[] args) {
+    
+    public void main(String[] args) {
         String cadenaxifrada = "";
         String cadenadesxifrada = "";
         inicialitzarLlista();
@@ -15,7 +16,7 @@ public class XifradorMonoalfabetic {
         mostraExemples(cadenaxifrada,cadenadesxifrada,EXEMPLES);
     }
 
-    public static void mostraExemples(String cadenaxifrada, String cadenadesxifrada, String[] EXEMPLES) {
+    private void mostraExemples(String cadenaxifrada, String cadenadesxifrada, String[] EXEMPLES) {
         System.out.println("Alfabet :" + abc);
         System.out.println("Alfabet Permutat : " + abcPermutat);
         System.out.println("-------------------");
@@ -28,18 +29,18 @@ public class XifradorMonoalfabetic {
         }
     }
 
-    public static void inicialitzarLlista() {
+    private void inicialitzarLlista() {
             for(char c : ABCMIN) {
                 abc.add(c);
                 abcPermutat.add(c);
             }
      }
  
-    public static void permutaAlfabet(ArrayList<Character> alfabet) {
+    private void permutaAlfabet(ArrayList<Character> alfabet) {
        Collections.shuffle(alfabet);
     }
     
-    public static String processaMonoalfa(String cadena, boolean dreta) {
+    private String processaMonoalfa(String cadena, boolean dreta) {
         StringBuilder cadenaProcessada = new StringBuilder();
             
         for (int i = 0; i < cadena.length(); i++) {
@@ -75,11 +76,11 @@ public class XifradorMonoalfabetic {
         
     }
 
-    public static String xifraMonoAlfa(String cadena) {
+    private String xifraMonoAlfa(String cadena) {
        return processaMonoalfa(cadena, true);
     }
     
-    public static String desxifraMonoAlfa(String cadena) {
+    private String desxifraMonoAlfa(String cadena) {
         return processaMonoalfa(cadena, false);
     }
 

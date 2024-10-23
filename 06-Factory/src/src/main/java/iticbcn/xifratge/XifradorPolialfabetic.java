@@ -5,12 +5,12 @@ import java.util.Random;
 
 public class XifradorPolialfabetic {
     public static final char[] ABCMIN = "aáàäbcçdeéèëfghiíìïjklmnñoóòöpqrstuúùüvwxyz".toCharArray();
-    public static ArrayList<Character> alfabet = new ArrayList<Character>();
-    public static long clauSecreta = 4538291;
-    public static Random rand;
-    public static int numRand; 
+    private ArrayList<Character> alfabet = new ArrayList<Character>();
+    private long clauSecreta = 4538291;
+    private Random rand;
+    private int numRand; 
     
-    public static void main(String[] args) {
+    public void main(String[] args) {
         String msgs[] = {"Test 01 àrbritre, coixí, Perímetre",
         "Test 02 Taüll, DÍA, año",
         "Test 03 Peça, Òrrius, Bòvila"};
@@ -32,17 +32,17 @@ public class XifradorPolialfabetic {
         }
         
 
-    private static void initRandom(long clauSecreta2) {
+    private void initRandom(long clauSecreta2) {
         //inicialitzar el generador de números random amb la clau secreta (seed)
         rand = new Random(clauSecreta2);
     }
-    public static void inicialitzarLlista() {
+    private void inicialitzarLlista() {
         for(char c : ABCMIN) {
             alfabet.add(c);
         }
     }
 
-    public static String processaPoliAlfa(String cadena, boolean dreta) {
+    private String processaPoliAlfa(String cadena, boolean dreta) {
         StringBuilder cadenaProcessada = new StringBuilder();
         for (int i = 0; i < cadena.length(); i++) {
             char lletra = cadena.charAt(i);
@@ -80,14 +80,14 @@ public class XifradorPolialfabetic {
 
         return cadenaProcessada.toString();
     }
-    public static void permutaAlfabet(ArrayList<Character> alfabet) {
+    private void permutaAlfabet(ArrayList<Character> alfabet) {
         /*barrejar lletres amb aleatorietat*/
         Collections.shuffle(alfabet, rand);
     }
-    public static String xifraPoliAlfa( String msg ) {
+    private String xifraPoliAlfa( String msg ) {
         return processaPoliAlfa(msg, true);
     }
-    public static String desxifraPoliAlfa( String msgXifrat ) {
+    private String desxifraPoliAlfa( String msgXifrat ) {
         return processaPoliAlfa(msgXifrat, false);
     }
 

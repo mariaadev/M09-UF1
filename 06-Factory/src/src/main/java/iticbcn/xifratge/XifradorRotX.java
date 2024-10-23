@@ -1,5 +1,6 @@
 package iticbcn.xifratge;
-public class XifradorRotX {
+
+public class XifradorRotX implements Xifrador {
 
     public static final char[] ABCMIN = "aáàäbcçdeéèëfghiíìïjklmnñoóòöpqrstuúùüvwxyz".toCharArray();
     public static final char[] ABCMAJ = "AÁÀÄBCÇDEÉÈËFGHIÍÌÏJKLMNÑOÓÒÖPQRSTUÚÙÜVWXYZ".toCharArray();
@@ -115,5 +116,17 @@ public class XifradorRotX {
             String cadenaDesxifrada = desxifraRotX(cadenaXifrada, i);
             System.out.println("\n" + i + ": " + cadenaDesxifrada + "\n");
         }
+    }
+
+    @Override
+    public TextXifrat xifra(String msg, String clau) throws ClauNoSuportada {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'xifra'");
+    }
+
+    @Override
+    public String desxifra(TextXifrat xifrat, String clau) throws ClauNoSuportada {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'desxifra'");
     }
 }

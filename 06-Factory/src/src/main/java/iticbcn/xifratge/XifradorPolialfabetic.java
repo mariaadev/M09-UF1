@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-public class XifradorPolialfabetic {
+public class XifradorPolialfabetic implements Xifrador {
     public static final char[] ABCMIN = "aáàäbcçdeéèëfghiíìïjklmnñoóòöpqrstuúùüvwxyz".toCharArray();
     private ArrayList<Character> alfabet = new ArrayList<Character>();
     private long clauSecreta = 4538291;
@@ -30,7 +30,11 @@ public class XifradorPolialfabetic {
             System.out.printf("%-34s -> %s%n", msgsXifrats[i], msg);
             }
         }
-        
+    /*TODO: ha d’inicialitzar el random abans del xifrat i el desxifrat per
+    que el xifrat funcioni. */
+    /*TODO: ha de tractar de convertir la clau a long i si dona error ha de
+    llançar una excepció de ClauNoSuportada tant en el xifra com el desxifra amb el
+    missatge que es veu en l’exemple d’execució. */
 
     private void initRandom(long clauSecreta2) {
         //inicialitzar el generador de números random amb la clau secreta (seed)
@@ -89,6 +93,20 @@ public class XifradorPolialfabetic {
     }
     private String desxifraPoliAlfa( String msgXifrat ) {
         return processaPoliAlfa(msgXifrat, false);
+    }
+
+
+    @Override
+    public TextXifrat xifra(String msg, String clau) throws ClauNoSuportada {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'xifra'");
+    }
+
+
+    @Override
+    public String desxifra(TextXifrat xifrat, String clau) throws ClauNoSuportada {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'desxifra'");
     }
 
 }

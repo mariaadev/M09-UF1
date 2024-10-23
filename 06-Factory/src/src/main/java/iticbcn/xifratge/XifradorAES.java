@@ -6,7 +6,7 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 
-public class XifradorAES {
+public class XifradorAES implements Xifrador {
     public static final String ALGORISME_XIFRAT = "AES";
     public static final String ALGORISME_HASH = "SHA-256";
     public static final String FORMAT_AES = "AES/CBC/PKCS5Padding";
@@ -113,5 +113,15 @@ public class XifradorAES {
         return new String(decrypted, StandardCharsets.UTF_8);
 
     }
-
+    @Override
+    public TextXifrat xifra(String msg, String clau) throws ClauNoSuportada {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'xifra'");
+    }
+    @Override
+    public String desxifra(TextXifrat xifrat, String clau) throws ClauNoSuportada {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'desxifra'");
+    }
+    /*TODO: Si dona un error de xifrat ha de mostar error i sortir del programa. */
 }

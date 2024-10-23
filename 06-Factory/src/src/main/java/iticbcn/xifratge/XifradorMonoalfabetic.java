@@ -2,12 +2,18 @@ package iticbcn.xifratge;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class XifradorMonoalfabetic {
+public class XifradorMonoalfabetic implements Xifrador {
     public static final char[] ABCMIN = "aáàäbcçdeéèëfghiíìïjklmnñoóòöpqrstuúùüvwxyz".toCharArray();
     private ArrayList<Character> abc = new ArrayList<Character>();
     private ArrayList<Character> abcPermutat = new ArrayList<Character>();
     public static final String[] EXEMPLES = {"Adrià", "Silvia", "Avinguda Amèrica", "Sebastián?", "Tinc gana."};
     
+    public XifradorMonoalfabetic () {
+           /* TODO: Inicialitzar permutació en el constructor */
+    }
+    /*TODO: si no rep un null com a clau ha de llançar una excepció
+    de ClauNoSuportada tant en el xifra com el desxifra amb el missatge que es veu
+    en l’exemple d’execució. */
     public void main(String[] args) {
         String cadenaxifrada = "";
         String cadenadesxifrada = "";
@@ -82,6 +88,19 @@ public class XifradorMonoalfabetic {
     
     private String desxifraMonoAlfa(String cadena) {
         return processaMonoalfa(cadena, false);
+    }
+
+ 
+    @Override
+    public TextXifrat xifra(String msg, String clau) throws ClauNoSuportada {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'xifra'");
+    }
+
+    @Override
+    public String desxifra(TextXifrat xifrat, String clau) throws ClauNoSuportada {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'desxifra'");
     }
 
 }

@@ -1,7 +1,6 @@
-
+package iticbcn.xifratge;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
-
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;

@@ -1,4 +1,4 @@
-
+package iticbcn.xifratge;
 public class XifradorRotX {
 
     public static final char[] ABCMIN = "aáàäbcçdeéèëfghiíìïjklmnñoóòöpqrstuúùüvwxyz".toCharArray();

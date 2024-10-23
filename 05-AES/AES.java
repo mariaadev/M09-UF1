@@ -4,6 +4,7 @@ import java.security.SecureRandom;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
 
 public class AES {
     public static final String ALGORISME_XIFRAT = "AES";
@@ -11,7 +12,6 @@ public class AES {
     public static final String FORMAT_AES = "AES/CBC/PKCS5Padding";
 
     private static final int MIDA_IV = 16;
-    private static byte[] iv = new byte[MIDA_IV];
     private static final String CLAU = "LaClauSecretaQueVulguis";
     public static void main(String[] args) {
         String msgs[] = {"Lorem ipsum dicet",
@@ -42,7 +42,7 @@ public class AES {
         //Obtenir els bytes de l’String
         byte[] msgByte =  msg.getBytes();
         // Genera IvParameterSpec
-        iv = new byte[MIDA_IV];
+        byte[] iv = generaIV();
         //Generador números random de forma segura
         SecureRandom random = new SecureRandom();
         random.nextBytes(iv);
@@ -50,14 +50,7 @@ public class AES {
         IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
         
         // Genera hash
-        MessageDigest digest = MessageDigest.getInstance(ALGORISME_HASH);
-        digest.update(CLAU.getBytes("UTF-8"));
-        //inicialitzar keybytes amb 16 btytes
-        byte[] keyBytes = new byte[16];
-        //copiar el resultat del hash a l'array de keyBytes que s'utilitza com a clau per AES
-        System.arraycopy(digest.digest(), 0, keyBytes, 0, keyBytes.length);
-        //Construeix una clau secreta a partir de l'array de bytes.
-        SecretKeySpec secretKeySpec = new SecretKeySpec(keyBytes, ALGORISME_XIFRAT);
+        SecretKeySpec secretKeySpec = generaSecretKey(clau);
         
         // Xifrador al qual li passem el format de encriptació
         Cipher cipher = Cipher.getInstance(FORMAT_AES);
@@ -76,6 +69,24 @@ public class AES {
         return encryptedIVAndText;
     }
 
+    public static byte[] generaIV() {
+        byte[] iv = new byte[MIDA_IV];
+        SecureRandom random = new SecureRandom();
+        random.nextBytes(iv);
+        return iv;
+    }
+
+    public static SecretKeySpec generaSecretKey (String CLAU) throws Exception {
+        MessageDigest digest = MessageDigest.getInstance(ALGORISME_HASH);
+        byte[] keyHash = digest.digest(CLAU.getBytes( StandardCharsets.UTF_8));
+        //inicialitzar keybytes amb 16 btytes si és xifrat 
+        byte[] keyBytes = new byte[16];
+         //copiar el resultat del hash a l'array de keyBytes que s'utilitza com a clau per AES
+        System.arraycopy(keyHash,0,keyBytes,0,keyBytes.length);
+        //Construeix una clau secreta a partir de l'array de bytes.
+        return new SecretKeySpec(keyBytes, ALGORISME_XIFRAT);
+    }
+
     public static String desxifraAES (byte[] bIvIMsgXifrat , String clau) throws Exception {
         // Extreure l'IV.
         byte[] iv = new byte[MIDA_IV];
@@ -90,12 +101,7 @@ public class AES {
         System.arraycopy(bIvIMsgXifrat, MIDA_IV, encryptedBytes, 0, encryptedSize);
         
         // Fer hash de la clau
-        byte[] keyBytes = new byte[16];
-        MessageDigest md = MessageDigest.getInstance(ALGORISME_HASH);
-        md.update(clau.getBytes());
-        System.arraycopy(md.digest(), 0, keyBytes, 0, keyBytes.length);
-        SecretKeySpec secretKeySpec = new SecretKeySpec(keyBytes, ALGORISME_XIFRAT);
-        
+        SecretKeySpec secretKeySpec = generaSecretKey(clau);    
         // Desxifrar.
         Cipher cipherDecrypt = Cipher.getInstance(FORMAT_AES);
         //Inicialitzar xifrador en mode desxifrar
@@ -103,7 +109,7 @@ public class AES {
         byte[] decrypted = cipherDecrypt.doFinal(encryptedBytes);
 
         // convertir bytes desxifrats a String
-        return new String(decrypted, "UTF-8");
+        return new String(decrypted, StandardCharsets.UTF_8);
 
     }
 

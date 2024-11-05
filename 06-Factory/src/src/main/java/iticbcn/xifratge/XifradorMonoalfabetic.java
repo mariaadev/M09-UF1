@@ -9,17 +9,14 @@ public class XifradorMonoalfabetic implements Xifrador {
     public static final String[] EXEMPLES = {"Adrià", "Silvia", "Avinguda Amèrica", "Sebastián?", "Tinc gana."};
     
     public XifradorMonoalfabetic () {
-           /* TODO: Inicialitzar permutació en el constructor */
+           inicialitzarLlista();
+           permutaAlfabet(abcPermutat);
     }
-    /*TODO: si no rep un null com a clau ha de llançar una excepció
-    de ClauNoSuportada tant en el xifra com el desxifra amb el missatge que es veu
-    en l’exemple d’execució. */
     public void main(String[] args) {
         String cadenaxifrada = "";
         String cadenadesxifrada = "";
-        inicialitzarLlista();
-        permutaAlfabet(abcPermutat);
-        mostraExemples(cadenaxifrada,cadenadesxifrada,EXEMPLES);
+        XifradorMonoalfabetic xifrador = new XifradorMonoalfabetic();
+        xifrador.mostraExemples(cadenaxifrada,cadenadesxifrada,EXEMPLES);
     }
 
     private void mostraExemples(String cadenaxifrada, String cadenadesxifrada, String[] EXEMPLES) {
@@ -93,14 +90,16 @@ public class XifradorMonoalfabetic implements Xifrador {
  
     @Override
     public TextXifrat xifra(String msg, String clau) throws ClauNoSuportada {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'xifra'");
+       if (clau != null) throw new ClauNoSuportada("Xifratge monoalfabètic no suporta clau != null");
+       String cadenaXifrada = xifraMonoAlfa(msg);
+       return new TextXifrat(cadenaXifrada.getBytes());
     }
 
     @Override
     public String desxifra(TextXifrat xifrat, String clau) throws ClauNoSuportada {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'desxifra'");
+        if (clau != null) throw new ClauNoSuportada("Xifratge monoalfabètic no suporta clau != null");
+        String msgXifrat = xifrat.toString();
+        return desxifraMonoAlfa(msgXifrat);
     }
 
 }

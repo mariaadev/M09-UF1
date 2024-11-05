@@ -14,6 +14,7 @@ public class XifradorAES implements Xifrador {
     public static final int MIDA_IV = 16;
     public static final String CLAU = "LaClauSecretaQueVulguis";
     
+    
     public  void main(String[] args) {
         String msgs[] = {"Lorem ipsum dicet",
         
@@ -115,11 +116,18 @@ public class XifradorAES implements Xifrador {
     }
     @Override
     public TextXifrat xifra(String msg, String clau) throws ClauNoSuportada {
-       return xifraAES(msg, clau);
+       try {
+        return new TextXifrat(xifraAES(msg, clau));
+    } catch (Exception e) {
+        throw new ClauNoSuportada("Error al xifrar " + e.getMessage());
+    }
     }
     @Override
     public String desxifra(TextXifrat xifrat, String clau) throws ClauNoSuportada {
-        return desxifraAES(xifrat, clau);
+        try {
+            return desxifraAES(xifrat.getBytes(), clau);
+        } catch (Exception e) {
+            throw new ClauNoSuportada("Error al xifrar " + e.getMessage());
+        }
     }
-    /*TODO: Si dona un error de xifrat ha de mostar error i sortir del programa. */
 }

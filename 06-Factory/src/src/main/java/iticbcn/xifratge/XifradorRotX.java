@@ -120,13 +120,39 @@ public class XifradorRotX implements Xifrador {
 
     @Override
     public TextXifrat xifra(String msg, String clau) throws ClauNoSuportada {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'xifra'");
+        int desplacament;
+        try {
+            desplacament = Integer.parseInt(clau);
+
+        } catch (NumberFormatException e) {
+            throw new ClauNoSuportada("Clau de RotX ha de ser un sencer de 0 a 40");
+        }
+
+        if (desplacament < 0 || desplacament > 40) {
+            throw new ClauNoSuportada("Clau de RotX ha de ser un sencer de 0 a 40");
+        } 
+
+        String cadenaXifrada = xifraRotX(msg, desplacament);
+        
+        return new TextXifrat(cadenaXifrada.getBytes());
     }
 
     @Override
     public String desxifra(TextXifrat xifrat, String clau) throws ClauNoSuportada {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'desxifra'");
+        int desplacament;
+        try {
+            desplacament = Integer.parseInt(clau);
+
+        } catch (NumberFormatException e) {
+            throw new ClauNoSuportada("Clau de RotX ha de ser un sencer de 0 a 40");
+        }
+
+        if (desplacament < 0 || desplacament > 40) {
+            throw new ClauNoSuportada("Clau de RotX ha de ser un sencer de 0 a 40");
+        } 
+
+        String cadenaDesxifrada = desxifraRotX(xifrat.toString(), desplacament);
+        
+        return cadenaDesxifrada;
     }
 }

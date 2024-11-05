@@ -115,13 +115,11 @@ public class XifradorAES implements Xifrador {
     }
     @Override
     public TextXifrat xifra(String msg, String clau) throws ClauNoSuportada {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'xifra'");
+       return xifraAES(msg, clau);
     }
     @Override
     public String desxifra(TextXifrat xifrat, String clau) throws ClauNoSuportada {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'desxifra'");
+        return desxifraAES(xifrat, clau);
     }
     /*TODO: Si dona un error de xifrat ha de mostar error i sortir del programa. */
 }

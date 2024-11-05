@@ -1,5 +1,8 @@
 package iticbcn.xifratge;
 
 public class ClauNoSuportada extends Exception {
-    /*TODO: Ha d'admetre un missatge */
+    public ClauNoSuportada(String missatge) {
+        /*crida a la classe pare Exception per passar el missatge */
+        super(missatge);
+    }
 }

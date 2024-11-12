@@ -121,6 +121,7 @@ public class XifradorRotX implements Xifrador {
     @Override
     public TextXifrat xifra(String msg, String clau) throws ClauNoSuportada {
         int desplacament;
+        
         try {
             desplacament = Integer.parseInt(clau);
 

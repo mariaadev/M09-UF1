@@ -11,7 +11,7 @@ public class Hashes {
     int npass = 0;
     public static void main(String[] args) throws Exception {
         String salt = "qpoweiruañslkdfjz";
-        String pw = "aaabF!";
+        String pw = "aaab!";
         Hashes h = new Hashes();
         String[] aHashes = { h.getSHA512AmbSalt(pw, salt),
         h.getPBKDF2AmbSalt(pw, salt) };
@@ -72,7 +72,6 @@ public class Hashes {
         npass = 0;
         char[] charset = "abcdefABCDEF1234567890!".toCharArray();
         char[] guess = new char[6];
-
         for (int i1 = 0; i1 < charset.length; i1++) {
             guess[0] = charset[i1];
             for (int i2 = 0; i2 < charset.length; i2++) {
@@ -95,6 +94,7 @@ public class Hashes {
                                 }
 
                                 npass++;
+                                if (npass == 845) return null;
                                 if (hashedGuess.equals(hash)) {
                                     return guessStr;
                                 }
